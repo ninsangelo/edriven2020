@@ -1,84 +1,51 @@
-var startm = prompt("Month (1 - 12)");
-var startd = prompt("Day (1 - 7)");
+function subevent1(){
+    var subtotal = document.getElementById("subtotal").value;
+    var tax = parseFloat(subtotal) * 0.12;
+    var total = parseFloat(subtotal) * 1.12;
+    var paid = total;
+    var change = 0;
 
-const dayspermonth = [31,28,31,30,31,30,31,31,30,31,30,31]
-emptybox = startd - 1
-let displaymonth = ''
-
-if (startm == 1)
-    displaymonth = 'January'
-else if (startm == 2)
-    displaymonth = 'February'
-else if (startm == 3)
-    displaymonth = 'March'
-else if (startm == 4)
-    displaymonth = 'April'
-else if (startm == 5)
-    displaymonth = 'May'
-else if (startm == 6)
-    displaymonth = 'June'
-else if (startm == 7)
-    displaymonth = 'July'
-else if (startm == 8)
-    displaymonth = 'August'
-else if (startm == 9)
-    displaymonth = 'September'
-else if (startm == 10)
-    displaymonth = 'October'
-else if (startm == 11)
-    displaymonth = 'November'
-else if (startm == 12)
-    displaymonth = 'December'
-        
-        let Calendar = '<table><tr><td colspan = "7" align = "center" id = "month">'+displaymonth+'</td></tr><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></table>'
-        let dpm = dayspermonth[startm-1] + emptybox
-        let box = 0
-        let amountD = 1
-    if (startm > 12 || startd > 7 || startm == 0 || startd == 0)
-    {
-        calendar.innerHTML = ("Invalid Input")
-        
+    if (subtotal < 100 || subtotal > 10000){
+        document.getElementById("tax").value = "";
+        document.getElementById("total").value = "";
+        document.getElementById("paid").value = "";
+        document.getElementById("change").value = "";
+        document.getElementById("paid").disabled=true;
     }
-    else
-    {
-    for (i =0; i < dpm; i++){
-        if (box == 0){
-            Calendar+= '<tr>'
+    else{
+        
+        document.getElementById("tax").value = tax.toFixed(2);
+        document.getElementById("total").value = total.toFixed(2);
+        document.getElementById("paid").value = paid.toFixed(2);
+        document.getElementById("change").value = change.toFixed(2);
+        document.getElementById("paid").disabled=false;
+        if (parseFloat(paid) >= parseFloat(total)){
+            pay.style.backgroundColor = "#285b13";
         }
-        if (i < emptybox){
-            if (box == 0){
-                Calendar+='<td style ="background-color:#FFFFFF"></td>'
-            }
-            else{
-                Calendar+='<td></td>'
-            }
-            box++
+        else{
+            pay.style.backgroundColor = "#570b0b";
         }
-        else {
-            if (box == 0){
-                Calendar+='<td style ="background-color:#FFFFFF">'+amountD+'</td>'
-            }
-            else{
-            Calendar += '<td>'+amountD+'</td>'
-            }
-            box++
-            amountD++
-        }
-        if (box == 7){
-            Calendar+='</tr>'
-            box = 0
-        }
-
-        }
-
-        if (box > 0){
-            for (i = box; i < 7; i++){
-                Calendar += '<td></td>'   
-            }
-         }
-         calendar.innerHTML = Calendar;
-        }
-       
+    }
+}
  
-
+function subevent2(){
+    var total = document.getElementById("total").value;
+    var paid = document.getElementById("paid").value;
+    if (paid == ""){
+        document.getElementById("change").value = "Change";
+        pay.style.backgroundColor = "#570b0b";
+    }
+    else{
+        var change = parseFloat(paid) - parseFloat(total);
+        document.getElementById("change").value = change.toFixed(2);
     
+        if (parseFloat(paid) >= parseFloat(total)){
+            pay.style.backgroundColor = "#285b13";
+        }
+        else{
+            pay.style.backgroundColor = "#570b0b";
+        }
+    }
+    
+  
+}
